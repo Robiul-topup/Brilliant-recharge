@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্রিলিয়ান্ট রিচার্জ - অনলাইন অর্ডার</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 15px; }
+        .container { background-color: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #1a73e8; text-align: center; margin-bottom: 20px; font-size: 22px; }
+        
+        /* নোটিশ এবং পেমেন্ট বক্স */
+        .notice-box {
+            background-color: #fff9db;
+            border-left: 5px solid #fcc419;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .notice-text { font-size: 14px; color: #5c5f66; margin-bottom: 12px; line-height: 1.5; font-weight: 500; }
+        .payment-info {
+            background: #e7f5ff;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #a5d8ff;
+        }
+        .number-display { font-size: 18px; font-weight: bold; color: #1971c2; letter-spacing: 1px; }
+        .copy-btn {
+            background-color: #228be6;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .copy-btn:active { background-color: #1864ab; transform: scale(0.95); }
+
+        /* ফর্ম স্টাইল */
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; margin-top: 15px; font-size: 14px; }
+        input { width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; }
+        input:focus { border-color: #1a73e8; box-shadow: 0 0 5px rgba(26,115,232,0.2); }
+        .submit-btn { width: 100%; padding: 15px; background-color: #2f9e44; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
+        .submit-btn:hover { background-color: #258135; }
+        
+        #statusMessage { margin-top: 20px; text-align: center; font-weight: bold; padding: 15px; border-radius: 8px; display: none; }
+        .success { background-color: #d3f9d8; color: #2b8a3e; border: 1px solid #b2f2bb; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ব্রিলিয়ান্ট রিচার্জ</h2>
+
+    <div id="instructionArea">
+        <div class="notice-box">
+            <div class="notice-text">
+                📢 <strong>নির্দেশনা:</strong> রিচার্জ পেতে প্রথমে নিচের নাম্বারে টাকা <b>সেন্ড মানি</b> করুন বিকাশ/নগদ/রকেট/উপায় । এরপর নিচের ফর্মটি পূরণ করুন।
+            </div>
+            <div class="payment-info">
+                <span id="myNumber">01765129327</span> <button class="copy-btn" onclick="copyNumber()">কপি করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rechargeForm">
+        <label>আপনার ব্রিলিয়ান্ট নাম্বার</label>
+        <input type="number" id="brilliantNumber" placeholder="যেমন: +88096..." required>
+
+        <label>যে নাম্বার থেকে টাকা পাঠিয়েছেন এখানে লিখুন</label>
+        <input type="number" id="paymentNumber" placeholder="বিকাশ/নগদ/রকেট/উপায় নাম্বার" required>
+
+        <button class="submit-btn" onclick="submitOrder()">অর্ডার নিশ্চিত করুন</button>
+    </div>
+
+    <div id="statusMessage"></div>
+</div>
+
+<script>
+    // এক ক্লিকে নাম্বার কপি করার ফাংশন
+    function copyNumber() {
+        var num = document.getElementById("myNumber").innerText;
+        var dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = num;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        
+        // কাস্টমারকে জানানোর জন্য এলার্ট
+        alert("নাম্বারটি কপি হয়েছে: " + num);
+    }
+
+    // অর্ডার শিটে পাঠানোর ফাংশন
+    function submitOrder() {
+        const url = "https://script.google.com/macros/s/AKfycbwk_5NFoRl4HqhSy2eMivpV5hQMlwqfo-7q5LhxRFoojTBzpafwBEja4jM_JWQ6rbrJ/exec";
+        const b_num = document.getElementById('brilliantNumber').value;
+        const p_num = document.getElementById('paymentNumber').value;
+        const statusDiv = document.getElementById('statusMessage');
+
+        if (!b_num || !p_num) {
+            alert("দয়া করে সবগুলো ঘর পূরণ করুন।");
+            return;
+        }
+
+        statusDiv.style.display = "block";
+        statusDiv.className = "";
+        statusDiv.innerText = "অর্ডার সাবমিট হচ্ছে...";
+
+        fetch(url, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({ brilliantNumber: b_num, paymentNumber: p_num })
+        })
+        .then(() => {
+            document.getElementById('rechargeForm').style.display = "none";
+            document.getElementById('instructionArea').style.display = "none";
+            statusDiv.className = "success";
+            statusDiv.innerText = "ধন্যবাদ! আপনার অর্ডারটি সফল হয়েছে। ৫-১০ মিনিটের মধ্যে চেক করে রিচার্জ করে দেওয়া হবে। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে মেসেজ করুন 01765129327 ";
+        })
+        .catch(err => {
+            statusDiv.innerText = "দুঃখিত! আবার চেষ্টা করুন।";
+        });
+    }
+</script>
+
+</body>
+</html>
