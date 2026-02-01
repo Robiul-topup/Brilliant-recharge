@@ -3,131 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ব্রিলিয়ান্ট রিচার্জ - অনলাইন অর্ডার</title>
+    <title>রবিউল স্টোর</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 15px; }
-        .container { background-color: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { color: #1a73e8; text-align: center; margin-bottom: 20px; font-size: 22px; }
-        
-        /* নোটিশ এবং পেমেন্ট বক্স */
-        .notice-box {
-            background-color: #fff9db;
-            border-left: 5px solid #fcc419;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        .notice-text { font-size: 14px; color: #5c5f66; margin-bottom: 12px; line-height: 1.5; font-weight: 500; }
-        .payment-info {
-            background: #e7f5ff;
-            padding: 12px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #a5d8ff;
-        }
-        .number-display { font-size: 18px; font-weight: bold; color: #1971c2; letter-spacing: 1px; }
-        .copy-btn {
-            background-color: #228be6;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .copy-btn:active { background-color: #1864ab; transform: scale(0.95); }
-
-        /* ফর্ম স্টাইল */
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; margin-top: 15px; font-size: 14px; }
-        input { width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; }
-        input:focus { border-color: #1a73e8; box-shadow: 0 0 5px rgba(26,115,232,0.2); }
-        .submit-btn { width: 100%; padding: 15px; background-color: #2f9e44; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 25px; transition: 0.3s; }
-        .submit-btn:hover { background-color: #258135; }
-        
-        #statusMessage { margin-top: 20px; text-align: center; font-weight: bold; padding: 15px; border-radius: 8px; display: none; }
-        .success { background-color: #d3f9d8; color: #2b8a3e; border: 1px solid #b2f2bb; }
+        :root { --primary: #1e90ff; --secondary: #2ecc71; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 0; display: flex; justify-content: center; }
+        .mobile-container { width: 100%; max-width: 450px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; }
+        .header { background: var(--primary); color: white; text-align: center; padding: 20px; font-size: 20px; font-weight: bold; border-radius: 0 0 20px 20px; }
+        .container { padding: 15px; }
+        .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .offer-card { background: white; border-radius: 12px; padding: 10px; text-align: center; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .offer-card h3 { margin: 5px 0; font-size: 18px; color: #333; }
+        .offer-card p { color: var(--secondary); font-size: 12px; margin-bottom: 10px; font-weight: bold; }
+        .ok-btn { background: var(--primary); color: white; border: none; padding: 7px 15px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
+        .page { display: none; }
+        .active { display: block; }
+        .copy-box { background: #f1f8e9; padding: 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px dashed #4caf50; margin: 15px 0; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        .confirm-btn { background: var(--secondary); color: white; width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; margin-top: 10px; cursor: pointer; }
+        #status-result { margin-top: 10px; padding: 10px; border-radius: 5px; background: #eee; font-size: 13px; font-weight: bold; color: #333; }
+        .announcement { background: #fff3e0; padding: 15px; border-radius: 12px; border-left: 5px solid #ff9800; margin-bottom: 15px; text-align: left; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>ব্রিলিয়ান্ট রিচার্জ</h2>
-
-    <div id="instructionArea">
-        <div class="notice-box">
-            <div class="notice-text">
-                📢 <strong>নির্দেশনা:</strong> রিচার্জ পেতে প্রথমে নিচের নাম্বারে টাকা <b>সেন্ড মানি</b> করুন বিকাশ/নগদ/রকেট/উপায় । এরপর নিচের ফর্মটি পূরণ করুন।
-            </div>
-            <div class="payment-info">
-                <span id="myNumber">01765129327</span> <button class="copy-btn" onclick="copyNumber()">কপি করুন</button>
+<div class="mobile-container">
+    <div id="home-page" class="page active">
+        <div class="header">ব্রিলিয়ান্ট এবং বাংলালিংক স্টোর</div>
+        <div class="container">
+            <div class="offer-grid" id="offer-list"></div>
+            <div style="margin-top:25px; border-top:2px solid #eee; padding-top:20px;">
+                <h4 style="margin-bottom:10px;">🔍 অর্ডার স্ট্যাটাস চেক করতে</h4>
+                <input type="text" id="track-number" placeholder="আপনার নাম্বার দিন">
+                <button class="ok-btn" onclick="checkStatus()">সার্চ দিন</button>
+                <div id="status-result">অর্ডার তথ্য দেখুন...</div>
             </div>
         </div>
     </div>
 
-    <div id="rechargeForm">
-        <label>আপনার ব্রিলিয়ান্ট নাম্বার</label>
-        <input type="number" id="brilliantNumber" placeholder="যেমন: +88096..." required>
+    <div id="order-page" class="page">
+        <div class="header">নিয়ম অনুযায়ী অর্ডার করুন । হেল্প জন্য হোয়াটসঅ্যাপে মেসেজ দিন 01765129327</div>
+        <div class="container">
+            <div class="announcement">
+                <p style="margin: 0; font-size: 15px; color: #e65100; font-weight: bold;">📢 নির্দেশনা:</p>
+                <p style="margin: 5px 0 0 0; font-size: 14px; color: #5d4037; line-height: 1.5;">
+                    নিচের নাম্বারে <b>বিকাশ, নগদ, রকেট, উপায়</b> থেকে টাকা <b>সেন্ড মানি</b> করুন। তারপর ফর্মটি পূরণ করুন।
+                </p>
+            </div>
+            
+            <div class="copy-box">
+                <b id="my-num" style="font-size: 18px; color: #2e7d32;">01765129327</b>
+                <button onclick="copyNum()" style="background:#4caf50; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold;">কপি করুন</button>
+            </div>
 
-        <label>যে নাম্বার থেকে টাকা পাঠিয়েছেন এখানে লিখুন</label>
-        <input type="number" id="paymentNumber" placeholder="বিকাশ/নগদ/রকেট/উপায় নাম্বার" required>
+            <div style="text-align: left; font-weight: bold; font-size: 13px; color: #555;">📢 ব্রিলিয়ান্ট নাম্বার অথবা যে নাম্বার দিয়ে রেজিস্ট্রেশন করেছেন সেটি দিন :</div>
+            <input type="text" id="b-num" placeholder="+৮৮০৯৬ অথবা +৮৮০১">
 
-        <button class="submit-btn" onclick="submitOrder()">অর্ডার নিশ্চিত করুন</button>
+            <div style="text-align: left; font-weight: bold; font-size: 13px; color: #555;">📱 যে নাম্বার থেকে টাকা পাঠিয়েছেন এখানে লিখুন :</div>
+            <input type="text" id="s-num" placeholder="বিকাশ/নগদ/রকেট/উপায়">
+
+            <button class="confirm-btn" id="sub-btn" onclick="submitOrder()">✅ অর্ডার নিশ্চিত করুন</button>
+            <button onclick="location.reload()" style="width:100%; background:none; border:none; color:#757575; margin-top:15px; cursor:pointer;">⬅️ প্রথম পেজে ফিরে যান↩️</button>
+        </div>
     </div>
-
-    <div id="statusMessage"></div>
 </div>
 
 <script>
-    // এক ক্লিকে নাম্বার কপি করার ফাংশন
-    function copyNumber() {
-        var num = document.getElementById("myNumber").innerText;
-        var dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = num;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-        
-        // কাস্টমারকে জানানোর জন্য এলার্ট
-        alert("নাম্বারটি কপি হয়েছে: " + num);
+    // আপনার গুগল অ্যাপস স্ক্রিপ্ট লিঙ্ক
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxU7zV1HzExtYgJlYukcBI2K14f0cwcpjfx_y0Ljf26wx05BRbX1H7VMsvbaoVcSDkGfA/exec";
+    
+    const offers = [
+        {a: "ব্রিলিয়ান্ট ২০৳", b: "১০% বোনাস সহ ২২৳ পাবেন"}, {a: "ব্রিলিয়ান্ট ৩০৳", b: "১০% বোনাস সহ ৩৩৳ পাবেন"},
+        {a: "ব্রিলিয়ান্ট ৫০৳", b: "১০% বোনাস সহ ৫৫৳ পাবেন"}, {a: "ব্রিলিয়ান্ট ১০০৳", b: "১০% বোনাস সহ ১১০৳ পাবেন"},
+        {a: "ব্রিলিয়ান্ট ২০০৳", b: "১০% বোনাস সহ ২২০৳ পাবেন"}, {a: "বাংলালিংক সিম ২৪৳", b: "বোনাস সহ ২৫৳ পাবেন"},
+        {a: "বাংলালিংক সিম ৪৮৳", b: "বোনাস সহ ৫০৳ পাবেন"}, {a: "বাংলালিংক সিম ৯৬৳", b: "বোনাস সহ ১০০৳ পাবেন"},
+        {a: "ব্রিলিয়ান্ট অন্য পরিমাণ", b: "বোনাস সহ ১০% পাবেন"}, {a: "বাংলালিংক সিম অন্য পরিমাণ ", b: "৪% বোনাস সহ পাবেন"}
+    ];
+
+    let selectedAmt = "";
+    const list = document.getElementById('offer-list');
+    offers.forEach(o => {
+        list.innerHTML += `<div class="offer-card"><h3>${o.a}</h3><p>${o.b}</p><button class="ok-btn" onclick="goOrder('${o.a}')">অর্ডার করুন</button></div>`;
+    });
+
+    function goOrder(amt) {
+        selectedAmt = amt;
+        document.getElementById('home-page').style.display = 'none';
+        document.getElementById('order-page').style.display = 'block';
     }
 
-    // অর্ডার শিটে পাঠানোর ফাংশন
+    function copyNum() {
+        navigator.clipboard.writeText("01765129327");
+        alert("নাম্বার কপি হয়েছে: 01765129327");
+    }
+
     function submitOrder() {
-        const url = "https://script.google.com/macros/s/AKfycbwk_5NFoRl4HqhSy2eMivpV5hQMlwqfo-7q5LhxRFoojTBzpafwBEja4jM_JWQ6rbrJ/exec";
-        const b_num = document.getElementById('brilliantNumber').value;
-        const p_num = document.getElementById('paymentNumber').value;
-        const statusDiv = document.getElementById('statusMessage');
+        const b = document.getElementById('b-num').value;
+        const s = document.getElementById('s-num').value;
+        if(!b || !s) return alert("সব তথ্য সঠিকভাবে দিন!");
 
-        if (!b_num || !p_num) {
-            alert("দয়া করে সবগুলো ঘর পূরণ করুন।");
-            return;
-        }
+        document.getElementById('sub-btn').disabled = true;
+        document.getElementById('sub-btn').innerText = "অপেক্ষা করুন...";
 
-        statusDiv.style.display = "block";
-        statusDiv.className = "";
-        statusDiv.innerText = "অর্ডার সাবমিট হচ্ছে...";
-
-        fetch(url, {
+        fetch(SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify({ brilliantNumber: b_num, paymentNumber: p_num })
-        })
-        .then(() => {
-            document.getElementById('rechargeForm').style.display = "none";
-            document.getElementById('instructionArea').style.display = "none";
-            statusDiv.className = "success";
-            statusDiv.innerText = "ধন্যবাদ! আপনার অর্ডারটি সফল হয়েছে। ৫-১০ মিনিটের মধ্যে চেক করে রিচার্জ করে দেওয়া হবে। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে মেসেজ করুন 01765129327 ";
-        })
-        .catch(err => {
-            statusDiv.innerText = "দুঃখিত! আবার চেষ্টা করুন।";
-        });
+            body: JSON.stringify({action: "order", number: s, brilliantNum: b, amount: selectedAmt})
+        }).then(() => {
+            alert("অর্ডার করার জন্য ধন্যবাদ! আপনার তথ্য যাচাই করা হচ্ছে । আপনার অর্ডার ৫ থেকে ১০ মিনিটের মধ্য সম্পূর্ণ হবে অপেক্ষা করুন");
+            location.reload();
+        }).catch(() => alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।"));
+    }
+
+    function checkStatus() {
+        const n = document.getElementById('track-number').value;
+        const res = document.getElementById('status-result');
+        if(!n) return alert("নাম্বার দিন!");
+        res.innerText = "তথ্য অনুসন্ধান করা হচ্ছে...";
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({action: "checkStatus", number: n})
+        }).then(r => r.text()).then(t => res.innerText = t);
     }
 </script>
-
 </body>
 </html>
