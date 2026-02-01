@@ -5,43 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>রবিউল স্টোর</title>
     <style>
-        :root { --primary: #1e90ff; --secondary: #2ecc71; --bg: #f4f7f6; }
+        :root { --primary: #1e90ff; --secondary: #2ecc71; --bg: #f4f7f6; --bkash: #D12053; --nagad: #F7941E; --rocket: #8C3494; --upay: #004A98; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 0; display: flex; justify-content: center; }
         .mobile-container { width: 100%; max-width: 450px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; }
-        .header { background: var(--primary); color: white; text-align: center; padding: 20px; font-size: 20px; font-weight: bold; border-radius: 0 0 20px 20px; }
+        
+        .header { 
+            background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%); 
+            color: white; 
+            text-align: center; 
+            padding: 35px 20px; 
+            font-size: 24px; 
+            font-weight: 900; 
+            border-radius: 0 0 40px 40px; 
+            box-shadow: 0 15px 35px rgba(0, 123, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+            border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+
+        .scrolling-text { background: #fff9c4; color: #333; padding: 10px 0; font-size: 14px; font-weight: bold; border-bottom: 1px solid #ffe082; }
         .container { padding: 15px; }
-        .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .offer-card { background: white; border-radius: 12px; padding: 10px; text-align: center; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .offer-card h3 { margin: 5px 0; font-size: 18px; color: #333; }
-        .offer-card p { color: var(--secondary); font-size: 12px; margin-bottom: 10px; font-weight: bold; }
-        .ok-btn { background: var(--primary); color: white; border: none; padding: 7px 15px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
+
+        .home-payment-logos { display: flex; justify-content: center; gap: 8px; margin: 20px 0; }
+        .logo-box { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); }
+        .b-logo { background: var(--bkash); }
+        .n-logo { background: var(--nagad); }
+        .r-logo { background: var(--rocket); }
+        .u-logo { background: var(--upay); }
+
+        .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+        .offer-card { background: white; border-radius: 18px; padding: 15px; text-align: center; border: 1px solid #f0f0f0; box-shadow: 0 8px 20px rgba(0,0,0,0.04); transition: 0.3s; }
+        .offer-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.08); }
+        .offer-card h3 { margin: 5px 0; font-size: 17px; color: #222; font-weight: 700; }
+        .offer-card p { color: var(--secondary); font-size: 12px; margin-bottom: 12px; font-weight: bold; }
+        
+        .ok-btn { background: linear-gradient(to right, #1e90ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; }
+
+        .status-section { margin-top: 30px; background: #fff; padding: 20px; border-radius: 20px; border: 1px solid #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        #status-result { 
+            margin-top: 15px; 
+            padding: 15px; 
+            border-radius: 12px; 
+            background: #fdfdfd; 
+            font-size: 14px; 
+            color: #2c3e50; 
+            border-left: 6px solid #1e90ff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: none;
+            line-height: 1.6;
+        }
+
         .page { display: none; }
         .active { display: block; }
+        .announcement { background: #fff3e0; padding: 15px; border-radius: 12px; border-left: 5px solid #ff9800; margin-bottom: 15px; }
         .copy-box { background: #f1f8e9; padding: 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px dashed #4caf50; margin: 15px 0; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        .confirm-btn { background: var(--secondary); color: white; width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; margin-top: 10px; cursor: pointer; }
-        #status-result { margin-top: 10px; padding: 10px; border-radius: 5px; background: #eee; font-size: 13px; font-weight: bold; color: #333; }
-        .announcement { background: #fff3e0; padding: 15px; border-radius: 12px; border-left: 5px solid #ff9800; margin-bottom: 15px; text-align: left; }
+        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; font-size: 15px; outline: none; background: #fcfcfc; }
+        .confirm-btn { background: var(--secondary); color: white; width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; margin-top: 10px; cursor: pointer; }
+        .back-btn-large { width: 100%; background: #eb4d4b; color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="mobile-container">
     <div id="home-page" class="page active">
-        <div class="header">ব্রিলিয়ান্ট এবং বাংলালিংক স্টোর</div>
+        <div class="header">রবিউল স্টোর</div>
+        
+        <div class="scrolling-text">
+            <marquee>📢 আমাদের স্টোরে আপনাকে স্বাগতম! যেকোনো প্রয়োজনে হোয়াটসঅ্যাপ করুন: 01765129327</marquee>
+        </div>
+        
         <div class="container">
+            <div class="home-payment-logos">
+                <div class="logo-box b-logo">Bkash</div>
+                <div class="logo-box n-logo">Nagad</div>
+                <div class="logo-box r-logo">Rocket</div>
+                <div class="logo-box u-logo">Upay</div>
+            </div>
+
             <div class="offer-grid" id="offer-list"></div>
-            <div style="margin-top:25px; border-top:2px solid #eee; padding-top:20px;">
-                <h4 style="margin-bottom:10px;">🔍 অর্ডার স্ট্যাটাস চেক করতে</h4>
-                <input type="text" id="track-number" placeholder="আপনার নাম্বার দিন">
+            
+            <div class="status-section">
+                <h4 style="margin:0 0 10px 0; color: #333; font-size: 16px;">🔍 অর্ডার স্ট্যাটাস চেক</h4>
+                <input type="tel" id="track-number" placeholder="আপনার নাম্বার দিন" maxlength="11">
                 <button class="ok-btn" onclick="checkStatus()">সার্চ দিন</button>
-                <div id="status-result">অর্ডার তথ্য দেখুন...</div>
+                <div id="status-result"></div>
             </div>
         </div>
     </div>
 
     <div id="order-page" class="page">
-        <div class="header">নিয়ম অনুযায়ী অর্ডার করুন । হেল্প জন্য হোয়াটসঅ্যাপে মেসেজ দিন 01765129327</div>
+        <div class="header" style="font-size: 16px; padding: 20px; border-radius: 0 0 20px 20px;">নিয়ম অনুযায়ী অর্ডার করুন । হেল্প জন্য হোয়াটসঅ্যাপে মেসেজ দিন 01765129327</div>
         <div class="container">
             <div class="announcement">
                 <p style="margin: 0; font-size: 15px; color: #e65100; font-weight: bold;">📢 নির্দেশনা:</p>
@@ -55,20 +121,30 @@
                 <button onclick="copyNum()" style="background:#4caf50; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:bold;">কপি করুন</button>
             </div>
 
+            <div style="text-align: left; font-weight: bold; font-size: 13px; color: #555;">📢 পেমেন্ট মাধ্যম সিলেক্ট করুন :</div>
+            <select id="pay-method">
+                <option value="Bkash">Bkash</option>
+                <option value="Nagad">Nagad</option>
+                <option value="Rocket">Rocket</option>
+                <option value="Upay">Upay</option>
+            </select>
+
             <div style="text-align: left; font-weight: bold; font-size: 13px; color: #555;">📢 ব্রিলিয়ান্ট নাম্বার অথবা যে নাম্বার দিয়ে রেজিস্ট্রেশন করেছেন সেটি দিন :</div>
             <input type="text" id="b-num" placeholder="+৮৮০৯৬ অথবা +৮৮০১">
 
             <div style="text-align: left; font-weight: bold; font-size: 13px; color: #555;">📱 যে নাম্বার থেকে টাকা পাঠিয়েছেন এখানে লিখুন :</div>
             <input type="text" id="s-num" placeholder="বিকাশ/নগদ/রকেট/উপায়">
 
+            <div style="text-align: left; font-weight: bold; font-size: 13px; color: #555;">🆔 পেমেন্টের ট্রানজেকশন আইডি (TrxID) এখানে দিন :</div>
+            <input type="text" id="trx-id" placeholder="TrxID লিখুন">
+
             <button class="confirm-btn" id="sub-btn" onclick="submitOrder()">✅ অর্ডার নিশ্চিত করুন</button>
-            <button onclick="location.reload()" style="width:100%; background:none; border:none; color:#757575; margin-top:15px; cursor:pointer;">⬅️ প্রথম পেজে ফিরে যান↩️</button>
+            <button class="back-btn-large" onclick="location.reload()">⬅️ প্রথম পেজে ফিরে যান</button>
         </div>
     </div>
 </div>
 
 <script>
-    // আপনার গুগল অ্যাপস স্ক্রিপ্ট লিঙ্ক
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxU7zV1HzExtYgJlYukcBI2K14f0cwcpjfx_y0Ljf26wx05BRbX1H7VMsvbaoVcSDkGfA/exec";
     
     const offers = [
@@ -89,6 +165,7 @@
         selectedAmt = amt;
         document.getElementById('home-page').style.display = 'none';
         document.getElementById('order-page').style.display = 'block';
+        window.scrollTo(0,0);
     }
 
     function copyNum() {
@@ -99,29 +176,55 @@
     function submitOrder() {
         const b = document.getElementById('b-num').value;
         const s = document.getElementById('s-num').value;
-        if(!b || !s) return alert("সব তথ্য সঠিকভাবে দিন!");
+        const trx = document.getElementById('trx-id').value;
+        const method = document.getElementById('pay-method').value;
 
-        document.getElementById('sub-btn').disabled = true;
-        document.getElementById('sub-btn').innerText = "অপেক্ষা করুন...";
+        if(!b || !s || !trx) return alert("সব তথ্য সঠিকভাবে দিন!");
+
+        const btn = document.getElementById('sub-btn');
+        btn.disabled = true;
+        btn.innerText = "অপেক্ষা করুন...";
 
         fetch(SCRIPT_URL, {
             method: 'POST',
-            body: JSON.stringify({action: "order", number: s, brilliantNum: b, amount: selectedAmt})
+            body: JSON.stringify({
+                action: "order", 
+                number: s, 
+                brilliantNum: b, 
+                amount: selectedAmt,
+                trxID: trx,
+                paymentMethod: method
+            })
         }).then(() => {
             alert("অর্ডার করার জন্য ধন্যবাদ! আপনার তথ্য যাচাই করা হচ্ছে । আপনার অর্ডার ৫ থেকে ১০ মিনিটের মধ্য সম্পূর্ণ হবে অপেক্ষা করুন");
             location.reload();
-        }).catch(() => alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।"));
+        }).catch(() => {
+            alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।");
+            btn.disabled = false;
+            btn.innerText = "✅ অর্ডার নিশ্চিত করুন";
+        });
     }
 
     function checkStatus() {
         const n = document.getElementById('track-number').value;
         const res = document.getElementById('status-result');
         if(!n) return alert("নাম্বার দিন!");
-        res.innerText = "তথ্য অনুসন্ধান করা হচ্ছে...";
+        
+        res.style.display = "block";
+        res.innerHTML = "<i>🔍 অনুসন্ধান করা হচ্ছে...</i>";
+        
         fetch(SCRIPT_URL, {
             method: 'POST',
             body: JSON.stringify({action: "checkStatus", number: n})
-        }).then(r => r.text()).then(t => res.innerText = t);
+        })
+        .then(r => r.text())
+        .then(t => {
+            let onlyTime = t.replace(/\d{1,2}\/\d{1,2}\/\d{2,4}/g, "");
+            res.innerHTML = "<b>অর্ডার ফলাফল:</b><br>" + onlyTime;
+        })
+        .catch(() => {
+            res.innerHTML = "তথ্য পাওয়া যায়নি।";
+        });
     }
 </script>
 </body>
