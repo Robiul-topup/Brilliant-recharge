@@ -49,6 +49,31 @@
         input, select { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; font-size: 15px; background: #fcfcfc; }
         .confirm-btn { background: var(--secondary); color: white; width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; margin-top: 10px; cursor: pointer; }
         .back-btn-large { width: 100%; background: #eb4d4b; color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+
+        /* Modal Style */
+        #successModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            width: 85%;
+            max-width: 350px;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -109,6 +134,15 @@
     </div>
 </div>
 
+<div id="successModal">
+    <div class="modal-content">
+        <div style="font-size: 50px; color: #2ecc71; margin-bottom: 10px;">✔</div>
+        <h2 style="margin: 0; color: #333;">অর্ডার সফল!</h2>
+        <p style="color: #666; margin: 15px 0;">আপনার অর্ডারটি আমাদের কাছে পৌঁছেছে। আপনার তথ্য অনুসন্ধান করা হচ্ছে খুব শীঘ্রই আপনার অর্ডার সম্পূর্ণ হবে ৫ থেকে ১০ মিনিট সময় লাগতে পরে।</p>
+        <button onclick="location.reload()" class="ok-btn">ঠিক আছে</button>
+    </div>
+</div>
+
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxU7zV1HzExtYgJlYukcBI2K14f0cwcpjfx_y0Ljf26wx05BRbX1H7VMsvbaoVcSDkGfA/exec";
     
@@ -136,7 +170,6 @@
         const offer = offers[index];
         selectedOfferName = offer.a;
         
-        // অটোমেটিক প্রাইস ইনপুট বক্সে বসিয়ে দেওয়া (যদি থাকে)
         document.getElementById('p-amount').value = offer.price;
         document.getElementById('dynamic-text').innerText = "📢 " + offer.notice;
         
@@ -173,11 +206,12 @@
                 paymentMethod: method
             })
         }).then(() => {
-            alert("অর্ডার করার জন্য ধন্যবাদ! আপনার অর্ডার ৫ থেকে ১০ মিনিটের মধ্যে সম্পন্ন হবে।");
-            location.reload();
+            // পপ-আপ দেখানো হচ্ছে
+            document.getElementById('successModal').style.display = 'flex';
         }).catch(() => {
             alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।");
             btn.disabled = false;
+            btn.innerText = "✅ অর্ডার নিশ্চিত করুন";
         });
     }
 
