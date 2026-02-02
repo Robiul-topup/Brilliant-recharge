@@ -5,40 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>রবিউল স্টোর</title>
     <style>
-        :root { --primary: #1e90ff; --secondary: #2ecc71; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 0; display: flex; justify-content: center; }
-        .mobile-container { width: 100%; max-width: 450px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; overflow-x: hidden; }
+        :root { --primary: #1e90ff; --secondary: #2ecc71; --bg: #f4f7f6; --text: #2c3e50; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 0; display: flex; justify-content: center; color: var(--text); }
+        .mobile-container { width: 100%; max-width: 450px; background: white; min-height: 100vh; box-shadow: 0 0 25px rgba(0,0,0,0.1); position: relative; overflow-x: hidden; }
         
         /* হেডার */
-        .header { background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%); color: white; text-align: center; padding: 30px 20px 20px 20px; border-radius: 0 0 40px 40px; box-shadow: 0 15px 35px rgba(0, 123, 255, 0.4); display: flex; flex-direction: column; align-items: center; }
-        .title-text { font-size: 28px; font-weight: 900; margin-bottom: 20px; animation: motion 8s infinite; }
-        @keyframes motion { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .header { background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%); color: white; text-align: center; padding: 30px 20px 25px 20px; border-radius: 0 0 40px 40px; box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); display: flex; flex-direction: column; align-items: center; }
+        .title-text { font-size: 28px; font-weight: 900; margin-bottom: 20px; animation: motion 8s infinite; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        @keyframes motion { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         
-        .header-payment-icons { display: flex; gap: 10px; background: rgba(255, 255, 255, 0.2); padding: 12px 20px; border-radius: 30px; backdrop-filter: blur(5px); }
-        .m-logo { padding: 8px 15px; border-radius: 50px; font-size: 12px; font-weight: bold; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .header-payment-icons { display: flex; gap: 8px; background: rgba(255, 255, 255, 0.2); padding: 12px; border-radius: 30px; backdrop-filter: blur(8px); }
+        .m-logo { padding: 6px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .bkash { background: #D12053; } .nagad { background: #F7941E; } .rocket { background: #8C3494; } .upay { background: #005C92; }
 
-        /* অ্যানাউন্সমেন্ট - গতি ১৮ সেকেন্ডে সেট করা হয়েছে (মাঝারি ও ঝরঝরে) */
         .scrolling-container { background: #fff9c4; padding: 12px 0; font-size: 14px; font-weight: bold; border-bottom: 1px solid #ffe082; margin: 10px 0; overflow: hidden; white-space: nowrap; }
         .scrolling-text { display: inline-block; padding-left: 100%; animation: scroll 18s linear infinite; } 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
         .container { padding: 15px; }
         .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .offer-card { background: white; border-radius: 18px; padding: 15px; text-align: center; border: 1px solid #f0f0f0; box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
-        .ok-btn { background: linear-gradient(to right, #1e90ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; }
-        
-        .page { display: none; } .active { display: block; }
-        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; }
-        label { display: block; font-weight: bold; font-size: 13px; color: #444; margin-top: 10px; text-align: left; }
-        .confirm-btn { background: var(--secondary); color: white; width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; }
-        
-        /* আপনার অরিজিনাল হোম বাটন স্টাইল */
-        .home-btn-old { background: #eb4d4b; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
+        .offer-card { background: white; border-radius: 18px; padding: 15px; text-align: center; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.03); transition: 0.3s; position: relative; }
+        .offer-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .offer-card h3 { margin: 10px 0; font-size: 16px; color: #007bff; }
+        .offer-card p { font-size: 12px; color: #666; margin-bottom: 15px; }
 
-        /* সাকসেসফুল মোডাল */
-        #successModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 85%; max-width: 380px; padding: 30px; border-radius: 25px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .ok-btn { background: linear-gradient(to right, #1e90ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; transition: 0.3s; }
+        .ok-btn:active { transform: scale(0.96); }
+        
+        /* অর্ডার বক্স */
+        .order-box { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); margin-bottom: 20px; border: 1px solid #f0f0f0; }
+        
+        .copy-section { background: #e8f5e9; border: 2px dashed #2ecc71; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 20px; position: relative; }
+        .copy-section p { font-size: 12px; color: #27ae60; margin: 0 0 8px 0; font-weight: bold; }
+        .num-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .num-value { font-size: 24px; font-weight: 800; color: #333; letter-spacing: 1px; }
+        .copy-mini-btn { background: #2ecc71; color: white; border: none; padding: 6px 15px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: bold; }
+        
+        .form-label { display: block; font-weight: 600; font-size: 14px; margin: 15px 0 8px 0; color: #444; }
+        .input-field { width: 100%; padding: 15px; border: 1.5px solid #e0e0e0; border-radius: 12px; font-size: 15px; transition: 0.3s; background: #fdfdfd; box-sizing: border-box; }
+        .input-field:focus { border-color: #1e90ff; background: #fff; outline: none; box-shadow: 0 0 8px rgba(30, 144, 255, 0.2); }
+
+        .confirm-btn { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; width: 100%; padding: 18px; border: none; border-radius: 15px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); display: flex; justify-content: center; align-items: center; }
+        
+        .home-btn-old { background: #ff4757; color: white; border: none; padding: 14px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; font-size: 14px; transition: 0.3s; box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3); }
+        .home-btn-old:active { transform: scale(0.96); }
+
+        .pin-hint { background: #fff3e0; padding: 10px; border-radius: 8px; border-left: 4px solid #ff9800; margin-top: 5px; font-size: 11px; color: #e65100; line-height: 1.4; }
+
+        .page { display: none; }
+        .active { display: block; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        #successModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 85%; max-width: 380px; padding: 30px; border-radius: 25px; text-align: center; }
+        
+        .spinner { display: inline-block; width: 22px; height: 22px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; margin-right: 10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -51,51 +73,70 @@
                 <div class="m-logo bkash">Bkash</div><div class="m-logo nagad">Nagad</div><div class="m-logo rocket">Rocket</div><div class="m-logo upay">Upay</div>
             </div>
         </div>
-        <div class="scrolling-container"><div class="scrolling-text">📢 আমাদের রবিউল স্টোরে আপনাকে স্বাগতম! ব্রিলিয়ান্ট রিচার্জে ১০% অফার এবং বাংলালিংক সিম রিচার্জে ৪% বোনাস চলছে 🛍️</div></div>
+        <div class="scrolling-container"><div class="scrolling-text">📢 রবিউল স্টোরে আপনাকে স্বাগতম! ব্রিলিয়ান্ট রিচার্জে ১০% অফার এবং বাংলালিংক সিম রিচার্জে ৪% বোনাস গ্রামীণফোন সিম রিচার্জে ৩% বোনাস চলছে 🛍️</div></div>
         <div class="container">
             <div class="offer-grid" id="offer-list"></div>
-            <div style="margin-top: 25px; background: #fff; padding: 15px; border-radius: 15px; border: 1px solid #eee;">
-                <h4>🔍 অর্ডার হিস্ট্রি চেক করুন এখানে</h4>
-                <input type="tel" id="track-number" placeholder="আপনার মোবাইল নাম্বার">
-                <input type="password" id="track-pin" placeholder="৪ ডিজিটের পিন কোড" maxlength="4">
+            <div style="margin-top: 25px; background: #fff; padding: 18px; border-radius: 20px; border: 1px solid #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h4 style="margin-top:0;">🔍 আপনার অর্ডার হিস্ট্রি চেক করুন</h4>
+                <input type="tel" id="track-number" class="input-field" style="margin-bottom:10px" placeholder="আপনার মোবাইল নাম্বার">
+                <input type="password" id="track-pin" class="input-field" style="margin-bottom:10px" placeholder="৪ ডিজিটের পিন কোড" maxlength="4">
                 <button class="ok-btn" onclick="checkStatus()">সার্চ দিন</button>
-                <div id="status-result"></div>
+                <div id="status-result" style="display:none; margin-top:15px;"></div>
             </div>
         </div>
     </div>
 
     <div id="order-page" class="page">
-        <div class="header" style="padding: 20px;"><span>নিয়ম অনুযায়ী অর্ডার করুন :</span></div>
-        <div class="scrolling-container" style="background: #e3f2fd;"><div class="scrolling-text" id="dynamic-text" style="animation: scroll 18s linear infinite;"></div></div>
+        <div class="header" style="padding: 20px; border-radius: 0 0 20px 20px;">
+            <div style="font-size: 20px; font-weight: bold;">নিয়ম অনুযায়ী অর্ডার করুন :</div>
+        </div>
+        <div class="scrolling-container" style="background: #e3f2fd; border-bottom-color: #bbdefb;">
+            <div class="scrolling-text" id="dynamic-text" style="color: #1976d2;"></div>
+        </div>
         <div class="container">
-            <input type="hidden" id="store-offer-name">
-            <p style="font-size: 13px; font-weight: bold; text-align: left;">নিচের নাম্বারে টাকা পাঠানোর পর ফর্মটি পূরণ করুন:</p>
-            <div style="background: #f1f8e9; padding: 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px dashed #4caf50; margin: 10px 0;">
-                <b id="my-num" style="font-size:18px;">01765129327</b>
-                <button onclick="copyNum()" style="background:#4caf50; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">কপি</button>
+            <div class="order-box">
+                <p style="font-size: 14px; font-weight: bold; margin-bottom: 12px; color: #555; text-align: center;">নিচের নাম্বারে টাকা পাঠানোর পর ফর্মটি পূরণ করুন:</p>
+                <div class="copy-section">
+                    <p>বিকাশ/নগদ/রকেট/উপায় (পার্সোনাল/সেন্ড মানি করুন)</p>
+                    <div class="num-container">
+                        <span class="num-value" id="my-num">01765129327</span>
+                        <button class="copy-mini-btn" id="copy-btn" onclick="copyNum()">নাম্বার কপি করুন</button>
+                    </div>
+                </div>
+                <input type="hidden" id="store-offer-name">
+                <label class="form-label">📢 পেমেন্ট মাধ্যম সিলেক্ট করুন :</label>
+                <select id="pay-method" class="input-field">
+                    <option value="Bkash">Bkash (বিকাশ)</option>
+                    <option value="Nagad">Nagad (নগদ)</option>
+                    <option value="Rocket">Rocket (রকেট)</option>
+                    <option value="Upay">Upay (উপায়)</option>
+                </select>
+                <label class="form-label">💰 কত টাকা পাঠিয়েছেন সেটি এখানে লিখুন :</label>
+                <input type="number" id="p-amount" class="input-field" placeholder="টাকার পরিমাণ লিখুন">
+                <label class="form-label">📢 ব্রিলিয়ান্ট নাম্বার অথবা যে নাম্বার দিয়ে ব্রিলিয়ান্ট রেজিস্ট্রেশন করেছেন সেটি দিন :</label>
+                <input type="text" id="b-num" class="input-field" placeholder="+৮৮০৯৬... অথবা ০১৭...">
+                <label class="form-label">📱 যে নাম্বার থেকে টাকা পাঠিয়েছেন এখানে লিখুন :</label>
+                <input type="text" id="s-num" class="input-field" placeholder="বিকাশ/নগদ/রকেট/উপায়">
+                <label class="form-label">🔐 নতুন একটি ৪ ডিজিটের পিন কোড দিন (অর্ডার চেক করতে লাগবে):</label>
+                <input type="password" id="order-pin" class="input-field" placeholder="যেমন: ১২৩৪" maxlength="4">
+                <div class="pin-hint">
+                    ⚠️ এই পিনটি লিখে রাখুন, ভবিষ্যতে আপনার অর্ডারটি সফল হয়েছে কি না তা চেক করতে এই পিনটির প্রয়োজন হবে।
+                </div>
+                <button class="confirm-btn" id="sub-btn" onclick="submitOrder()">
+                   <span id="btn-text">✅ অর্ডার নিশ্চিত করুন</span>
+                </button>
             </div>
-            <label>📢 পেমেন্ট মাধ্যম সিলেক্ট করুন :</label>
-            <select id="pay-method"><option value="Bkash">Bkash</option><option value="Nagad">Nagad</option><option value="Rocket">Rocket</option><option value="Upay">Upay</option></select>
-            <label>💰 কত টাকা পাঠিয়েছেন সেটি এখানে লিখুন :</label>
-            <input type="number" id="p-amount" placeholder="টাকার পরিমাণ লিখুন">
-            <label>📢 ব্রিলিয়ান্ট নাম্বার অথবা যে নাম্বার দিয়ে ব্রিলিয়ান্ট রেজিস্ট্রেশন করেছেন সেটি দিন :</label>
-            <input type="text" id="b-num" placeholder="+৮৮০৯৬... অথবা ০১৭...">
-            <label>📱 যে নাম্বার থেকে টাকা পাঠিয়েছেন এখানে লিখুন :</label>
-            <input type="text" id="s-num" placeholder="বিকাশ/নগদ/রকেট/উপায়">
-            <label>🔐 নতুন একটি ৪ ডিজিটের পিন কোড দিন (অর্ডার চেক করতে লাগবে):</label>
-            <input type="password" id="order-pin" placeholder="যেমন: ১২৩৪" maxlength="4">
-            <button class="confirm-btn" id="sub-btn" onclick="submitOrder()">✅ অর্ডার নিশ্চিত করুন</button>
-            <button class="home-btn-old" onclick="goHome()">🏠 হোম পেজে ফিরে আসুন↩️</button>
+            <button class="home-btn-old" onclick="goHome()">🏠 হোম পেজে ফিরে আসুন ↩️</button>
         </div>
     </div>
 </div>
 
 <div id="successModal">
     <div class="modal-content">
-        <div style="font-size: 55px; color: #2ecc71;">✅</div>
-        <h2 style="color: #2ecc71; margin-bottom: 15px;">অর্ডার সফল হয়েছে!</h2>
-        <p style="font-size: 16px; line-height: 1.5; color: #333;">আপনার অর্ডার তথ্য চেক করা হচ্ছে অপেক্ষা করুন ৫ থেকে ১০ মিনিটের মধ্যে পেয়ে যাবেন । ধন্যবাদ !</p>
-        <button onclick="location.reload()" class="ok-btn" style="margin-top: 25px; padding: 15px 40px; font-size: 16px;">ঠিক আছে</button>
+        <div style="font-size: 60px; color: #2ecc71;">✅</div>
+        <h2 style="color: #2ecc71; margin: 15px 0;">অর্ডার সফল হয়েছে!</h2>
+        <p style="font-size: 15px; line-height: 1.6; color: #444;">আপনার অর্ডারের তথ্য চেক করা হচ্ছে অপেক্ষা করুন ৫ থেকে ১০ মিনিটের মধ্যে রিচার্জ পেয়ে যাবেন। ধন্যবাদ!</p>
+        <button onclick="location.reload()" class="ok-btn" style="margin-top: 25px; padding: 15px;">ঠিক আছে</button>
     </div>
 </div>
 
@@ -103,16 +144,17 @@
     const SCRIPT_URL = "Https://script.google.com/macros/s/AKfycbx6uHm7UFnTuTeE3cMzsxQ8PJS34uiUnA3V_R-1gyg5g4ghbOBc6hv4OCzbFA36k_vS/exec";
     
     const offers = [
-        {a: "ব্রিলিয়ান্ট ২০৳", b: "১০% বোনাস সহ ২২৳ পাবেন", notice: "ব্রিলিয়ান্ট ২০ টাকা রিচার্জে ১০% বোনাসে ২২৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "20"},
-        {a: "ব্রিলিয়ান্ট ৩০৳", b: "১০% বোনাস সহ ৩৩৳ পাবেন", notice: "ব্রিলিয়ান্ট ৩০ টাকা রিচার্জে ১০% বোনাসে ৩৩৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "30"},
-        {a: "ব্রিলিয়ান্ট ৫০৳", b: "১০% বোনাস সহ ৫৫৳ পাবেন", notice: "ব্রিলিয়ান্ট ৫০ টাকা রিচার্জে ১০% বোনাসে ৫৫৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "50"},
-        {a: "ব্রিলিয়ান্ট ১০০৳", b: "১০% বোনাস সহ ১১০৳ পাবেন", notice: "ব্রিলিয়ান্ট ১০০ টাকা রিচার্জে ১০% বোনাসে ১১০৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "100"},
-        {a: "ব্রিলিয়ান্ট ২০০৳", b: "১০% বোনাস সহ ২২০৳ পাবেন", notice: "ব্রিলিয়ান্ট ২০০ টাকা রিচার্জে ১০% বোনাসে ২২০৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "200"},
-        {a: "বাংলালিংক সিম ২৪৳", b: "বোনাস সহ ২৫৳ পাবেন", notice: "বাংলালিংক ২৪ টাকা রিচার্জে ৪% বোনাসে ২৫৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "24"},
-        {a: "বাংলালিংক সিম ৪৮৳", b: "বোনাস সহ ৫০৳ পাবেন", notice: "বাংলালিংক ৪৮ টাকা রিচার্জে ৪% বোনাসে ৫০৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "48"},
-        {a: "বাংলালিংক সিম ৯৬৳", b: "বোনাস সহ ১০০৳ পাবেন", notice: "বাংলালিংক ৯৬ টাকা রিচার্জে ৪% বোনাসে ১০০৳ পাবেন। যেকোনো হেল্প লাগলে হোয়াটসঅ্যাপে যোগাযোগ করুন: 01765129327", price: "96"},
-        {a: "ব্রিলিয়ান্ট অন্য পরিমাণ", b: "১০% বোনাস পাবেন", notice: "ব্রিলিয়ান্ট যেকোনো পরিমাণে ১০% বোনাস পাবেন। হোয়াটসঅ্যাপ হেল্প: 01765129327", price: ""},
-        {a: "বাংলালিংক অন্য পরিমাণ", b: "৪% বোনাস পাবেন", notice: "বাংলালিংক যেকোনো পরিমাণে ৪% বোনাস পাবেন। হোয়াটসঅ্যাপ হেল্প: 01765129327", price: ""}
+        {a: "ব্রিলিয়ান্ট ২০৳", b: "১০% বোনাস সহ ২২৳ পাবেন", notice: "ব্রিলিয়ান্ট ২০ টাকা রিচার্জে ১০% বোনাসে ২২৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "20"},
+        {a: "ব্রিলিয়ান্ট ৩০৳", b: "১০% বোনাস সহ ৩৩৳ পাবেন", notice: "ব্রিলিয়ান্ট ৩০ টাকা রিচার্জে ১০% বোনাসে ৩৩৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "30"},
+        {a: "ব্রিলিয়ান্ট ৫০৳", b: "১০% বোনাস সহ ৫৫৳ পাবেন", notice: "ব্রিলিয়ান্ট ৫০ টাকা রিচার্জে ১০% বোনাসে ৫৫৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "50"},
+        {a: "ব্রিলিয়ান্ট ১০০৳", b: "১০% বোনাস সহ ১১০৳ পাবেন", notice: "ব্রিলিয়ান্ট ১০০ টাকা রিচার্জে ১০% বোনাসে ১১০৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "100"},
+        {a: "ব্রিলিয়ান্ট ২০০৳", b: "১০% বোনাস সহ ২২০৳ পাবেন", notice: "ব্রিলিয়ান্ট ২০০ টাকা রিচার্জে ১০% বোনাসে ২২০৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "200"},
+        {a: "বাংলালিংক সিম ২৪৳", b: "বোনাস সহ ২৫৳ পাবেন", notice: "বাংলালিংক ২৪ টাকা রিচার্জে ৪% বোনাসে ২৫৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "24"},
+        {a: "বাংলালিংক সিম ৪৮৳", b: "বোনাস সহ ৫০৳ পাবেন", notice: "বাংলালিংক ৪৮ টাকা রিচার্জে ৪% বোনাসে ৫০৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "48"},
+        {a: "বাংলালিংক সিম ৯৬৳", b: "বোনাস সহ ১০০৳ পাবেন", notice: "বাংলালিংক ৯৬ টাকা রিচার্জে ৪% বোনাসে ১০০৳ পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: "96"},
+        {a: "ব্রিলিয়ান্ট অন্য পরিমাণ", b: "১০% বোনাস পাবেন", notice: "ব্রিলিয়ান্ট যেকোনো পরিমাণে ১০% বোনাস পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: ""},
+        {a: "বাংলালিংক অন্য পরিমাণ", b: "৪% বোনাস পাবেন", notice: "বাংলালিংক যেকোনো পরিমাণে ৪% বোনাস পাবেন। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে: 01765129327", price: ""},
+        {a: "গ্রামীণফোন সিম অফার ৯৭৳", b: "৩% বোনাস পাবেন ১০০৳", notice: "গ্রামীণফোন নাম্বারে ৯৭ টাকা দিয়ে পাচ্ছেন ১০০ টাকা রিচার্জ মেন ব্যালেন্স। যে কোনো হেল্প জন্য মেসেজ দিন হোয়াটসঅ্যাপে : 01765129327", price:"97"}
     ];
 
     const list = document.getElementById('offer-list');
@@ -134,22 +176,55 @@
         document.getElementById('home-page').classList.add('active');
     }
 
+    function copyNum() {
+        const num = document.getElementById('my-num').innerText;
+        const btn = document.getElementById('copy-btn');
+        navigator.clipboard.writeText(num);
+        const originalText = btn.innerText;
+        btn.innerText = "হয়েছে!";
+        btn.style.background = "#1e90ff";
+        setTimeout(() => { 
+            btn.innerText = originalText; 
+            btn.style.background = "#2ecc71";
+        }, 2000);
+    }
+
     function checkStatus() {
         let n = document.getElementById('track-number').value.trim();
         let p = document.getElementById('track-pin').value.trim();
         const res = document.getElementById('status-result');
         if(!n || !p) return alert("মোবাইল নাম্বার এবং ৪ ডিজিটের পিন দিন!");
-        res.style.display = "block"; res.innerHTML = "🔍 আপনার তথ্য অনুসন্ধান চলছে...";
+        
+        res.style.display = "block"; 
+        // অনুসন্ধান অবস্থায় নীল কালার
+        res.innerHTML = "<p style='font-size:14px; text-align:center; color:#007bff; font-weight:bold;'>🔍 আপনার তথ্য অনুসন্ধান চলছে...</p>";
+        
         fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({action: "checkStatus", number: n, pin: p}) })
         .then(r => r.json()).then(data => {
-            if(!data || data.length === 0) { res.innerHTML = "❌ সঠিক তথ্য খুঁজে পাওয়া যায়নি।"; return; }
-            let table = `<table style="width:100%; border-collapse:collapse; font-size:11px;"><tr><th>তারিখ</th><th>অফার</th><th>অবস্থা</th></tr>`;
+            if(!data || data.length === 0) { 
+                res.innerHTML = "<p style='color:red; text-align:center;'>❌ সঠিক তথ্য খুঁজে পাওয়া যায়নি।</p>"; 
+                return; 
+            }
+            
+            // রেজাল্ট আসার পর নীল/নেভি থিম কালার
+            let table = `<table style='width:100%; border-collapse:collapse; font-size:12px; border: 1px solid #e0e0e0;'>
+                <tr style='background:#1e90ff; color:white;'>
+                    <th style='padding:10px; border-bottom:1px solid #ddd;'>🗓️ তারিখ</th>
+                    <th style='padding:10px; border-bottom:1px solid #ddd;'>🫴 অফার</th>
+                    <th style='padding:10px; border-bottom:1px solid #ddd;'>অবস্থা</th>
+                </tr>`;
             data.forEach(order => { 
-                let color = order.status === "Success" || order.status === "Successful" ? "#2ecc71" : "#f39c12"; 
-                table += `<tr><td style="border:1px solid #eee; padding:5px;">${order.date}<br>${order.time}</td><td style="border:1px solid #eee; padding:5px;">${order.offer}</td><td style="border:1px solid #eee; padding:5px;"><span style="background:${color}; color:white; padding:2px 5px; border-radius:5px;">${order.status}</span></td></tr>`; 
+                let color = (order.status === "Success" || order.status === "Successful") ? "#2ecc71" : "#f39c12"; 
+                table += `<tr style='background:#f9f9f9;'>
+                    <td style='padding:10px; border-bottom:1px solid #eee; text-align:center;'>${order.date}</td>
+                    <td style='padding:10px; border-bottom:1px solid #eee; text-align:center; font-weight:600;'>${order.offer}</td>
+                    <td style='padding:10px; border-bottom:1px solid #eee; text-align:center;'>
+                        <span style="background:${color}; color:white; padding:4px 10px; border-radius:12px; font-size:10px;">${order.status}</span>
+                    </td>
+                </tr>`; 
             });
-            res.innerHTML = "<b>📋 আপনার শেষ অর্ডারসমূহ:</b>" + table + "</table>";
-        }).catch(() => { res.innerHTML = "❌ সার্ভার সমস্যা।"; });
+            res.innerHTML = "<h5 style='margin-bottom:10px; color:#1e90ff;'>📋 আপনার সর্বশেষ অর্ডারসমূহ:</h5>" + table + "</table>";
+        }).catch(() => { res.innerHTML = "<p style='color:red; text-align:center;'>❌ সার্ভার সমস্যা। আবার চেষ্টা করুন।</p>"; });
     }
 
     function submitOrder() {
@@ -157,12 +232,22 @@
         const s = document.getElementById('s-num').value.trim();
         const amt = document.getElementById('p-amount').value;
         const pin = document.getElementById('order-pin').value.trim();
-        if(!b || !s || !amt || pin.length < 4) return alert("সব তথ্য ও পিন দিন!");
-        document.getElementById('sub-btn').disabled = true; document.getElementById('sub-btn').innerText = "অপেক্ষা করুন...";
+        const btn = document.getElementById('sub-btn');
+        const btnText = document.getElementById('btn-text');
+        
+        if(!b || !s || !amt || pin.length < 4) return alert("সব তথ্য সঠিকভাবে পূরণ করুন!");
+
+        btn.disabled = true; 
+        btnText.innerHTML = `<span class="spinner"></span> অর্ডার হচ্ছে...`;
+        
         fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({action: "order", number: s, brilliantNum: b, amount: amt, offerName: document.getElementById('store-offer-name').value, paymentMethod: document.getElementById('pay-method').value, pin: pin}) })
-        .then(() => { document.getElementById('successModal').style.display = 'flex'; });
+        .then(() => { document.getElementById('successModal').style.display = 'flex'; })
+        .catch(() => { 
+            alert("ত্রুটি হয়েছে! আবার চেষ্টা করুন।"); 
+            btn.disabled = false; 
+            btnText.innerText = "✅ অর্ডার নিশ্চিত করুন"; 
+        });
     }
-    function copyNum() { navigator.clipboard.writeText("01765129327"); alert("কপি হয়েছে!"); }
 </script>
 </body>
 </html>
