@@ -86,7 +86,7 @@
                 <h4 style="margin-top:0;">🔍 আপনার অর্ডার হিস্ট্রি চেক করুন</h4>
                 <input type="tel" id="track-number" class="input-field" style="margin-bottom:10px" placeholder="আপনার মোবাইল নাম্বার দিন">
                 <input type="password" id="track-pin" class="input-field" style="margin-bottom:10px" placeholder="আপনার ৪ ডিজিট পিন দিন" maxlength="4">
-                <button class="ok-btn" onclick="checkStatus()">সার্চ করুন</button>
+                <button class="ok-btn" onclick="checkStatus()">আপনার অর্ডারের তথ্য দেখুন</button>
             </div>
         </div>
     </div>
@@ -280,7 +280,7 @@
         .then(response => response.json())
         .then(data => {
             document.getElementById('loadingOverlay').style.display = 'none';
-            if(data.length === 0) { alert("❌ কিছু ভুল হচ্ছে অথবা তাই কোনো তথ্য পাওয়া যায়নি!"); } 
+            if(data.length === 0) { alert("❌ কিছু ভুল হচ্ছে তাই কোনো তথ্য পাওয়া যায়নি! আবার চেষ্টা করুন!"); } 
             else {
                 document.getElementById('home-page').classList.remove('active');
                 document.getElementById('history-page').classList.add('active');
